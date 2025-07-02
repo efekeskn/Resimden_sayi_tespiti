@@ -4,6 +4,7 @@ import easyocr
 import re
 from PIL import Image, ImageEnhance, ImageFilter
 
+
 def preprocess_image(image_path):
 
     img = cv2.imread(image_path)
@@ -55,7 +56,7 @@ def preprocess_image(image_path):
 def detect_number_easyocr(image_path):
 
     try:
-        reader = easyocr.Reader(['en'], gpu=False)
+        reader = easyocr.Reader(['en'], gpu=True)
         
         preprocessing_methods = [
             preprocess_image,
@@ -201,15 +202,35 @@ def detect_number_tesseract_fallback(image_path):
 
 def main():
 
- 
-    image_path = "resim7.png"  
+
+
+    image_paths = [
+        "resim7.png",
+        "resim2.png",
+        "resim3.png",
+        "resim4.png",
+        "resim5.png",
+        "resim6.png"
+    ]
+    
+    for path in image_paths:
+        print(f"📷 İşleniyor: {path}")
+        detected_number = detect_number_easyocr(path)
+        
+        if detected_number == "Unclear":
+            detected_number = detect_number_tesseract_fallback(path)
+        
+        print(f"🔢 Tespit Edilen Sayı: {detected_number}\n")
+    
+    """  image_path = "resim7.png"  
     
     detected_number = detect_number_easyocr(image_path)
     
     if detected_number == "Unclear":
         detected_number = detect_number_tesseract_fallback(image_path)
     
-    print(detected_number)
+    print(detected_number)"""
+
 
 if __name__ == "__main__":
     import sys
