@@ -177,12 +177,11 @@ def detect_number_tesseract_fallback(image_path):
 
 def main():
     image_paths = [
-        
+        "resim1.png",     
         "resim2.png",
         "resim3.png",
         "resim4.png",
         "resim5.png",
-        "resim7.png",
     ]
 
     print("\n Toplam Görsel Sayısı:", len(image_paths))
